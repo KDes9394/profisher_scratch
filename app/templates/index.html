@@ -1,7 +1,10 @@
 {% extends "navbar.html" %}
 
-<body>
-<h1>Hi, {{ user.username }}!</h1>
+
+
+
+{% block content %}
+    <h1>Hi, {{ current_user.username }}!</h1>
     {% for job in jobs %}
     <div><p>{{ job.author.username }} says: <b>{{ job.job_desc }}</b></p></div>
-{% endfor %}
+{% endfor %} 
