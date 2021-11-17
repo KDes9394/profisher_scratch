@@ -30,15 +30,29 @@ class RegistrationForm(FlaskForm):
 
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
+    about_us = TextAreaField('About us', validators=[Length(min=0, max=140)])
     submit = SubmitField('Submit')
 
 class JobForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     body = StringField('Job Description', validators=[DataRequired()])
-    requirements = StringField('List the Top 3 Requirements for This Role', validators=[DataRequired()])
     requirements1 = StringField('List the Top 3 Requirements for This Role', validators=[DataRequired()])
     requirements2 = StringField('List the Top 3 Requirements for This Role', validators=[DataRequired()])
+    requirements3 = StringField('List the Top 3 Requirements for This Role', validators=[DataRequired()])
     datecreated = StringField('Posted Date', validators=[DataRequired()])
     location = StringField('JobLocation', validators=[DataRequired()])
     submit = SubmitField()
+
+class Application(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    location = StringField('Your Address', validators=[DataRequired()])
+    about_me = StringField('About you: What experience, skill, and vision will you bring to this position? (within 500 characters)',validators=[Length(min=0, max=500)])
+    req1_ans = StringField('Your Answer', validators=[DataRequired()])
+    req2_ans = StringField('Your Answer', validators=[DataRequired()])
+    req3_ans = StringField('Your Answer', validators=[DataRequired()])
+    experience = Stringfield()
+
+
+    submit = SubmitField()
+
