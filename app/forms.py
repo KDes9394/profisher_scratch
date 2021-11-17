@@ -36,6 +36,9 @@ class EditProfileForm(FlaskForm):
 class JobForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     body = StringField('Job Description', validators=[DataRequired()])
-    datecreated = StringField('Poasted Date', validators=[DataRequired()])
-    location = StringField('Location', validators=[DataRequired()])
+    requirements = StringField('List the Top 3 Requirements for This Role', validators=[DataRequired()])
+    requirements1 = StringField('List the Top 3 Requirements for This Role', validators=[DataRequired()])
+    requirements2 = StringField('List the Top 3 Requirements for This Role', validators=[DataRequired()])
+    datecreated = StringField('Posted Date', validators=[DataRequired()])
+    location = StringField('JobLocation', validators=[DataRequired()])
     submit = SubmitField()
