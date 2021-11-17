@@ -1,0 +1,31 @@
+Fabric
+Flask-SQLAlchemy
+Flask-WTF
+WTForms
+coverage
+# ecdsa
+# paramiko
+# pycrypto
+bcrypt==3.2.0
+cffi==1.15.0
+click==8.0.3
+colorama==0.4.4
+coverage==6.1.2
+cryptography==35.0.0
+fabric==2.6.0
+Flask==2.0.2
+Flask-SQLAlchemy==2.5.1
+Flask-WTF==1.0.0
+greenlet==1.1.2
+invoke==1.6.0
+itsdangerous==2.0.1
+Jinja2==3.0.3
+MarkupSafe==2.0.1
+paramiko==2.8.0
+pathlib2==2.3.6
+pycparser==2.21
+PyNaCl==1.4.0
+six==1.16.0
+SQLAlchemy==1.4.27
+Werkzeug==2.0.2
+WTForms==3.0.0
