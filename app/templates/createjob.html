@@ -1,0 +1,27 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+
+<h1>Post a new Job</h1>
+<div class="container">
+    <form action="" autocomplete="off" method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <fieldset>
+                {{ form.title.label }}
+                {{ form.title(class='form-control', placeholder='Position Title', cols=24, rows=1) }}
+            </fieldset>
+            <fieldset>
+                {{ form.body.label }}
+                {{ form.body(class='form-control', placeholder='Job Description', cols=50, rows=4)  }}
+            </fieldset>
+            <fieldset>
+                {{ form.location.label }}
+                {{ form.location(class='form-control', placeholder='Location') }}
+            </fieldset>
+        </div>
+        {{ form.submit(class='btn btn-success') }}
+    </form>
+</div>
+
+{% endblock content %}

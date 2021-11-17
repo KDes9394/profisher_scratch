@@ -1,4 +1,4 @@
-% extends "navbar.html" %
+{% extends "navbar.html" %}
 
 {% block content %}
     <h1>Edit Profile</h1>
@@ -6,7 +6,7 @@
         {{ form.hidden_tag() }}
         <p>
             {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
+            {{ form.username(size=50) }}<br>
             {% for error in form.username.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}

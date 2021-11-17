@@ -2,8 +2,8 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm
-from app.models import User
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, JobForm
+from app.models import User, Job
 from datetime import datetime
 
 
@@ -11,18 +11,13 @@ from datetime import datetime
 @app.route('/index')
 @login_required
 def index():
-    user = {'username': 'Kento'}
+    user = {'username': 'Motifè'}
     jobs = [
-        {
-            'author': {'username': 'Jake'},
-            'job_desc': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Terry'},
-            'job_desc': 'The Avengers movie was so cool!'
-        }
+        {'author': user, 'body': 'Entry Level Programmer', 'location':'Chicago, IL'},
+        {'author': user, 'body': 'QA Engineer', 'location': 'San Diego, CA'}
     ]
-    return render_template("index.html", title='Home Page', jobs=jobs)
+    return render_template("index.html", title='Home Page', user = user, jobs=jobs)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -70,10 +65,10 @@ def register():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     jobs = [
-        {'author': user, 'body': 'Entry Level Programmer'},
-        {'author': user, 'body': 'QA Engineer'}
+        {'author': user, 'body': 'Entry Level Programmer', 'location':'Chicago, IL'},
+        {'author': user, 'body': 'QA Engineer', 'location': 'San Diego, CA'}
     ]
-    return render_template('user.html', user=user, jobs=jobs)
+    return render_template('user.html', user=user, jobs=jobs, )
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -91,3 +86,15 @@ def edit_profile():
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
+
+@app.route('/createjob', methods=['GET', 'POST'])
+def createpost():
+    form = JobForm()
+    if form.validate_on_submit():
+        print('Hello')
+        title = form.title.data
+        content = form.content.data
+        new_post = Job(title, content, user_id=1)
+        db.session.add(new_post)
+        db.session.commit()
+    return render_template('createjob.html', form=form)

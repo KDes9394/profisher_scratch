@@ -33,4 +33,9 @@ class EditProfileForm(FlaskForm):
     about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
     submit = SubmitField('Submit')
 
-
+class JobForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    body = StringField('Job Description', validators=[DataRequired()])
+    datecreated = StringField('Poasted Date', validators=[DataRequired()])
+    location = StringField('Location', validators=[DataRequired()])
+    submit = SubmitField()

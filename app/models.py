@@ -32,17 +32,24 @@ class User(UserMixin, db.Model):
 class Job(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    datecreated = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    location = db.Column(db.String(100))
     title = db.column(db.String(140))
 
+    def __init__(self, title, body, user_id, location, datecreated):
+        self.title = title
+        self.user_id = user_id
+        self.body = body
+        self.datecreated = datecreated
+        self.location = location
 
 
     def __repr__(self):
         return '<Job {}>'.format(self.body)
 
 class Application(db.Model):
-    application_id = db.Column(db.Serial, primary_key=True)
+    application_id = db.Column(db.Integer, primary_key=True)
     job_id =  db.Column(db.Integer, db.ForeignKey('job.id'))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     first_name = db.Column(db.String(50))
