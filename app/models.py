@@ -12,7 +12,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     jobs = db.relationship('Job', backref='author', lazy='dynamic')
     # employer = db.Column(db.String(120), index=True, unique=True)
-    about_me = db.Column(db.String(140))
+    about_us = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
@@ -31,17 +31,19 @@ class User(UserMixin, db.Model):
 
 class Job(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(140))
     body = db.Column(db.String(140))
+    category= db.Column(db.String(100))
     datecreated = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     location = db.Column(db.String(100))
-    title = db.column(db.String(140))
+    
+    
 
-    def __init__(self, title, body, user_id, location, datecreated):
+    def __init__(self, title, body, location, user_id):
         self.title = title
         self.user_id = user_id
         self.body = body
-        self.datecreated = datecreated
         self.location = location
 
 

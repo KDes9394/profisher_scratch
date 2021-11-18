@@ -36,11 +36,11 @@ class EditProfileForm(FlaskForm):
 class JobForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     body = StringField('Job Description', validators=[DataRequired()])
+    category = StringField('Job Category', validators=[DataRequired()])
     requirements1 = StringField('List the Top 3 Requirements for This Role', validators=[DataRequired()])
     requirements2 = StringField('List the Top 3 Requirements for This Role', validators=[DataRequired()])
     requirements3 = StringField('List the Top 3 Requirements for This Role', validators=[DataRequired()])
-    datecreated = StringField('Posted Date', validators=[DataRequired()])
-    location = StringField('JobLocation', validators=[DataRequired()])
+    location = StringField('Job Location', validators=[DataRequired()])
     submit = SubmitField()
 
 class Application(FlaskForm):
@@ -51,8 +51,5 @@ class Application(FlaskForm):
     req1_ans = StringField('Your Answer', validators=[DataRequired()])
     req2_ans = StringField('Your Answer', validators=[DataRequired()])
     req3_ans = StringField('Your Answer', validators=[DataRequired()])
-    experience = Stringfield()
-
-
     submit = SubmitField()
 

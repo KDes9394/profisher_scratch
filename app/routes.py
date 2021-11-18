@@ -11,9 +11,9 @@ from datetime import datetime
 @app.route('/index')
 @login_required
 def index():
-    user = {'username': 'Motifè'}
+    user = {'username': User.username}
     jobs = [
-        {'author': user, 'body': 'Entry Level Programmer', 'location':'Chicago, IL'},
+        {'author': user, 'body': Job.title, 'location': Job.location},
         {'author': user, 'body': 'QA Engineer', 'location': 'San Diego, CA'}
     ]
     return render_template("index.html", title='Home Page', user = user, jobs=jobs)
@@ -77,13 +77,13 @@ def edit_profile():
     form = EditProfileForm()
     if form.validate_on_submit():
         current_user.username = form.username.data
-        current_user.about_me = form.about_me.data
+        current_user.about_us = form.about_us.data
         db.session.commit()
         flash('Your changes have been saved.')
         return redirect(url_for('edit_profile'))
     elif request.method == 'GET':
         form.username.data = current_user.username
-        form.about_me.data = current_user.about_me
+        form.about_us.data = current_user.about_us
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
 
@@ -93,8 +93,15 @@ def createpost():
     if form.validate_on_submit():
         print('Hello')
         title = form.title.data
-        content = form.content.data
-        new_post = Job(title, content, user_id=1)
+        body = form.body.data
+        location = form.location.data
+        new_post = Job(title, body, location, user_id=1)
         db.session.add(new_post)
         db.session.commit()
     return render_template('createjob.html', form=form)
+
+@app.route('/jobs/<int:job_id>')
+def job_detail(job_id):
+    job = Job.query.get_or_404(job_id)
+    return render_template('job_apps.html', job=job)
+

@@ -12,11 +12,15 @@
                 {{ form.title(class='form-control', placeholder='Position Title', cols=24, rows=1) }}
             </fieldset>
             <fieldset>
+                {{ form.category.label}}
+                {{ form.category(class='form-control', placeholder = 'Position Category')}}
+            </fieldset>
+            <fieldset>
                 {{ form.body.label  }}
                 {{ form.body(class='form-control', placeholder='Job Description')}}
             </fieldset>
             <fieldset>
-                {{ form.requirements.label }}
+                {{ form.requirements1.label }}
                 {{ form.requirements1(class='form-control', placeholder='Priority #1', cols=50, rows=4)  }}<br>
                 {{ form.requirements2(class='form-control', placeholder='Priority #2', cols=50, rows=4)  }}<br>
                 {{ form.requirements3(class='form-control', placeholder='Priority #3', cols=50, rows=4)  }}

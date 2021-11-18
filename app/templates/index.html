@@ -4,8 +4,14 @@
 
 
 {% block content %}
-    <h1>Hi, {{ current_user.username }}!</h1>
+    <h1>Your Jobs!</h1>
+
     {% for job in jobs %}
-    <div><p>{{ job.author.username }} says: <b>{{ job.job_desc }}</b></p></div>
-{% endfor %} 
+
+        <div><p>{{ job.author.username }}: <b>{{ job.body }}</b> in {{job.location}}</p></div>
+        
+    {% endfor %} 
+
+   
+
 {% endblock %}
