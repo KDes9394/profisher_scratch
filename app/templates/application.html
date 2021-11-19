@@ -9,27 +9,27 @@
         <div class="form-group">
             <fieldset>
                 {{ form.first_name.label }}
-                {{ form.first_name(class='form-control', placeholder='Position Title', cols=24, rows=1) }}
+                {{ form.first_name(class='form-control', placeholder='First Name', cols=24, rows=1) }}<br>
                 {{ form.last_name.label }}
-                {{ form.last_name(class='form-control', placeholder='Position Title', cols=24, rows=1) }}
+                {{ form.last_name(class='form-control', placeholder='Last Name', cols=24, rows=1) }}<br>
             </fieldset>
             <fieldset>
                 {{ form.location.label }}
-                {{ form.location(class='form-control', placeholder='Location') }}
+                {{ form.location(class='form-control', placeholder='Address') }}<br>
             </fieldset>
             <fieldset>
                 {{ form.about_me.label }}
-                {{ form.about_me(class='form-control', placeholder='Location') }}
+                {{ form.about_me(class='form-control', placeholder='About You') }}<br>
             </fieldset>
             <fieldset>
-                {{ form.requirements1.label }}
+                {{ form.answer1.label}}
                 {{ form.answer1(class='form-control', placeholder='Your Answer', cols=50, rows=4)  }}<br>
             </fieldset>
             <fieldset>
-                {{ form.requirements2.label }}
+                {{ form.answer2.label}}
                 {{ form.answer2(class='form-control', placeholder='Your Answer', cols=50, rows=4)  }}<br>
             </fieldset>
-                {{ form.requirements3.label }}
+                {{ form.answer3.label}}
                 {{ form.answer3(class='form-control', placeholder='Your Answer', cols=50, rows=4)  }}
             </fieldset>
         </div>
