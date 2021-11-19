@@ -37,18 +37,24 @@ class Job(db.Model):
     datecreated = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     location = db.Column(db.String(100))
+    requirements1 = db.Column(db.String(500))
+    requirements2 = db.Column(db.String(500))
+    requirements3 = db.Column(db.String(500))
     
     
 
-    def __init__(self, title, body, location, user_id):
+    def __init__(self, title, body, category, requirements1, requirements2, requirements3, location, user_id):
         self.title = title
         self.user_id = user_id
         self.body = body
         self.location = location
-
+        self.category = category
+        self.requirements1 = requirements1
+        self.requirements2 = requirements2
+        self.requirements3 = requirements3
 
     def __repr__(self):
-        return '<Job {}>'.format(self.body)
+        return '<Job {}>'.format(self.title)
 
 class Application(db.Model):
     application_id = db.Column(db.Integer, primary_key=True)
@@ -57,7 +63,21 @@ class Application(db.Model):
     first_name = db.Column(db.String(50))
     last_name = db.Column(db.String(50))
     email_address = db.Column(db.String(50))
-    city_location = db.Column(db.String(50))
+    location = db.Column(db.String(50))
+
+    def __init__(self, first_name, last_name, location, about_me, answer1, answer2, answer3, job_id):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.job_id = job_id
+        self.location = location
+        self.about_me = about_me
+        self.answer1 = answer1
+        self.answer2 = answer2
+        self.answer3 = answer3
+
+
+    def __repr__(self):
+        return '<Application {}>'.format(self.last_name)
 
 
 

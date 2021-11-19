@@ -1,2 +1,40 @@
-{% extends "navbar.html" %}
+{% extends 'navbar.html' %}
 
+{% block content %}
+
+<h1>Your application</h1>
+<div class="container">
+    <form action="" autocomplete="off" method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <fieldset>
+                {{ form.first_name.label }}
+                {{ form.first_name(class='form-control', placeholder='Position Title', cols=24, rows=1) }}
+                {{ form.last_name.label }}
+                {{ form.last_name(class='form-control', placeholder='Position Title', cols=24, rows=1) }}
+            </fieldset>
+            <fieldset>
+                {{ form.location.label }}
+                {{ form.location(class='form-control', placeholder='Location') }}
+            </fieldset>
+            <fieldset>
+                {{ form.about_me.label }}
+                {{ form.about_me(class='form-control', placeholder='Location') }}
+            </fieldset>
+            <fieldset>
+                {{ form.requirements1.label }}
+                {{ form.answer1(class='form-control', placeholder='Your Answer', cols=50, rows=4)  }}<br>
+            </fieldset>
+            <fieldset>
+                {{ form.requirements2.label }}
+                {{ form.answer2(class='form-control', placeholder='Your Answer', cols=50, rows=4)  }}<br>
+            </fieldset>
+                {{ form.requirements3.label }}
+                {{ form.answer3(class='form-control', placeholder='Your Answer', cols=50, rows=4)  }}
+            </fieldset>
+        </div>
+        {{ form.submit(class='btn btn-success') }}
+    </form>
+</div>
+
+{% endblock content %}

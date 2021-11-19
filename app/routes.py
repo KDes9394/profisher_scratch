@@ -1,22 +1,20 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, jsonify
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, JobForm
-from app.models import User, Job
+from app.forms import ApplicationForm, LoginForm, RegistrationForm, EditProfileForm, JobForm
+from app.models import Application, User, Job
 from datetime import datetime
 
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET'])
+@app.route('/index', methods=['GET'])
 @login_required
 def index():
-    user = {'username': User.username}
-    jobs = [
-        {'author': user, 'body': Job.title, 'location': Job.location},
-        {'author': user, 'body': 'QA Engineer', 'location': 'San Diego, CA'}
-    ]
+
+    jobs= Job.query.all()
     return render_template("index.html", title='Home Page', user = user, jobs=jobs)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -33,7 +31,6 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
-        # return redirect(url_for('index'))
     return render_template('login.html', title='Sign In', form=form)
 
 
@@ -64,10 +61,7 @@ def register():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    jobs = [
-        {'author': user, 'body': 'Entry Level Programmer', 'location':'Chicago, IL'},
-        {'author': user, 'body': 'QA Engineer', 'location': 'San Diego, CA'}
-    ]
+    jobs= Job.query.all()
     return render_template('user.html', user=user, jobs=jobs, )
 
 
@@ -91,17 +85,78 @@ def edit_profile():
 def createpost():
     form = JobForm()
     if form.validate_on_submit():
-        print('Hello')
+        print('Posted')
         title = form.title.data
         body = form.body.data
+        category=form.category.data
         location = form.location.data
-        new_post = Job(title, body, location, user_id=1)
+        requirements1= form.requirements1.data
+        requirements2 = form.requirements2.data
+        requirements3= form.requirements3.data
+        new_post = Job(title, body, location=location, category=category, user_id=3, requirements1=requirements1, requirements2=requirements2, requirements3=requirements3)
         db.session.add(new_post)
         db.session.commit()
     return render_template('createjob.html', form=form)
+
+
+@app.route('/application', methods=['GET', 'POST'])
+@login_required
+def apply():
+    form = ApplicationForm()
+    if form.validate_on_submit():
+        print('Applied')
+        first_name = form.first_name.data
+        last_name = form.last_name.data        
+        location = form.location.data
+        about_me = form.about_me.data
+        location = form.location.data
+        answer1= form.answer1.data
+        answer2 = form.answer2.data
+        answer3= form.answer3.data
+        new_application = Application(first_name, last_name, location=location, about_me=about_me, user_id=3, answer1=answer1, answer2=answer2, answer3=answer3)
+        db.session.add(new_application)
+        db.session.commit()
+    return render_template('application.html', form=form)
+
 
 @app.route('/jobs/<int:job_id>')
 def job_detail(job_id):
     job = Job.query.get_or_404(job_id)
     return render_template('job_apps.html', job=job)
 
+
+@app.route('/jobs/<int:job_id>/update', methods=['GET', 'POST'])
+@login_required
+def job_update(job_id):
+    job = Job.query.get_or_404(job_id)
+    if job.author.id != current_user.id:
+        flash('That is not your job. You may only edit jobs you have created.', 'danger')
+        return redirect(url_for('app.job_detail'))
+    form = JobForm()
+    if form.validate_on_submit():
+        new_title = form.title.data
+        new_content = form.content.data
+        print(new_title, new_content)
+        job.title = new_title
+        job.content = new_content
+        db.session.commit()
+
+        flash(f'{job.title} has been saved', 'success')
+        return redirect(url_for('app.job_detail', job_id=job.id))
+
+    return render_template('job_update.html', job=job, form=form)
+
+
+@app.route('/jobs/<int:job_id>/delete', methods=['POST'])
+@login_required
+def job_delete(job_id):
+    job = Job.query.get_or_404(job_id)
+    if job.author != current_user:
+        flash('You can only delete your own jobs', 'danger')
+        return redirect(url_for('app.my_jobs'))
+
+    db.session.delete(job)
+    db.session.commit()
+
+    flash(f'{job.title} has been deleted', 'success')
+    return redirect(url_for('app.my_jobs'))

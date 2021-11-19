@@ -43,13 +43,13 @@ class JobForm(FlaskForm):
     location = StringField('Job Location', validators=[DataRequired()])
     submit = SubmitField()
 
-class Application(FlaskForm):
+class ApplicationForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     location = StringField('Your Address', validators=[DataRequired()])
     about_me = StringField('About you: What experience, skill, and vision will you bring to this position? (within 500 characters)',validators=[Length(min=0, max=500)])
-    req1_ans = StringField('Your Answer', validators=[DataRequired()])
-    req2_ans = StringField('Your Answer', validators=[DataRequired()])
-    req3_ans = StringField('Your Answer', validators=[DataRequired()])
+    answer1 = StringField('Your Answer', validators=[DataRequired()])
+    answer2 = StringField('Your Answer', validators=[DataRequired()])
+    answer3 = StringField('Your Answer', validators=[DataRequired()])
     submit = SubmitField()
 
