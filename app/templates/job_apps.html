@@ -1,4 +1,30 @@
 {% extends "navbar.html" %}
 
 {% block content %}
+<main>
+    
+    <section class="py-5 text-center container">
+        
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">{{job.title}}</h1>
+          <p class="lead text-muted">{{job.body}}<hr><b>Key Requirements</b><br>・{{job.requirements1}}<br>・{{job.requirements2}}<br>・{{job.requirements3}}</p>
+         
+        </div>
+      </div>
+      
+    </section>
 
+    <div class="row align-items-md-stretch">
+        {% for a in applications %}
+        <div class="col-md-6">
+          <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <h2>{{application.tagline}}</h2>
+            <p>・{{application.answer1}}<br>・{{application.answer2}}<br>・{{application.answer3}}</p>
+            <button class="btn btn-outline-light" type="button">View Application</button>
+          </div>
+        </div>
+        {% endfor %} 
+      </div> 
+ </main>
+{% endblock %}

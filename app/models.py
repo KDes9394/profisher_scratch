@@ -59,22 +59,28 @@ class Job(db.Model):
 
 class Application(db.Model):
     application_id = db.Column(db.Integer, primary_key=True)
-    job_id =  db.Column(db.Integer, db.ForeignKey('job.id'))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    job_id =  db.Column(db.Integer, db.ForeignKey(Job.id))
+    tagline = db.Column(db.String(50))
     first_name = db.Column(db.String(50))
     last_name = db.Column(db.String(50))
     email_address = db.Column(db.String(50))
     location = db.Column(db.String(50))
+    answer1 = db.column(db.String(300))
+    answer2 = db.column(db.String(300))
+    answer3 = db.column(db.String(300))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
-    def __init__(self, first_name, last_name, location, about_me, answer1, answer2, answer3, job_id):
+    def __init__(self, first_name, last_name, job_id, tagline, location, about_me, answer1, answer2, answer3):
         self.first_name = first_name
         self.last_name = last_name
         self.job_id = job_id
+        self.tagline = tagline
         self.location = location
         self.about_me = about_me
         self.answer1 = answer1
         self.answer2 = answer2
         self.answer3 = answer3
+        
 
 
     def __repr__(self):

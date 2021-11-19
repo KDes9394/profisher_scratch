@@ -47,6 +47,7 @@ class ApplicationForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     location = StringField('Your Address', validators=[DataRequired()])
+    tagline = StringField('In under 50 characters, please give us a tagline to identify your application.', validators=[Length(min=1, max=50)])
     about_me = StringField('About you: What experience, skill, and vision will you bring to this position? (within 500 characters)',validators=[Length(min=0, max=500)])
     answer1 = StringField('Your Answer', validators=[DataRequired()])
     answer2 = StringField('Your Answer', validators=[DataRequired()])

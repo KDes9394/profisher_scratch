@@ -1,0 +1,26 @@
+{% extends 'navbar.html'%}
+
+
+
+{% block content %}
+
+<section class="py-5 text-center container">
+        
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Candidate for {{job.title}}</h1>
+        <h2>{{application.first_name}}{{application.last_name}}</h2>
+        <p class="lead text-muted">{{job.body}}<hr><b>Key Requirements</b><br>
+            ・{{job.requirements1}}<br>{{application.answer1}}<hr><br>
+            ・{{job.requirements2}}<br>{{application.answer2}}<hr><br>
+            ・{{job.requirements3}}<br>{{application.answer3}}<hr><br>
+        
+            Email: {{application.email_address}}
+        </p>
+       
+      </div>
+    </div>
+    
+  </section>
+
+{% endblock %}

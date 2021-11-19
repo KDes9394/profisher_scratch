@@ -4,14 +4,6 @@
 
 
 {% block content %}
-    <h1>Your Jobs!</h1>
-
-    {% for job in jobs %}
-
-        <div><p> <b>{{ job.title }}</b> in {{job.location}}</p></div>
-        <a href="/jobs/<int:job.id>" class="btn btn-info" role="button">View Applicants</a>
-    {% endfor %} 
-
-   
-
+    <h1>Hi, {{current_user.username}}</h1>
 {% endblock %}
+

@@ -10,9 +10,8 @@
     </div>
     <div class="card-body">
         <blockquote class="blockquote mb-0">
-            <p>{{ job.content }}</p>
-            <footer class="blockquote-footer text-dark">{{ job.author.username }} on <cite title="Source Title">
-            </cite></footer>
+            <p>{{ job.body }}</p>
+            
         </blockquote>
         <a href="{{ url_for('app.job_update', job_id=job.id) }}" class="btn btn-success">Update</a>
             
@@ -30,11 +29,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                    Are you sure you would like to delete {{ job.title }}? You cannot undo this action.
+                    Are you sure you would like to delete {{ job.title }}? You can't undo this action.
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form action="{{ url_for('app.job_delete', job_id=job.id) }}" method="job">
+                    <form action="{{ url_for('app.job_delete', job_id=jobs.id) }}" method="post">
                         <input type="submit" class="btn btn-danger" value="Yes I'm Sure">
                     </form>
                     </div>

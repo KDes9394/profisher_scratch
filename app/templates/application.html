@@ -19,7 +19,11 @@
             </fieldset>
             <fieldset>
                 {{ form.about_me.label }}
-                {{ form.about_me(class='form-control', placeholder='About You') }}<br>
+                {{ form.about_me(class='form-control', placeholder='Your Tagline') }}<br>
+            </fieldset>
+            <fieldset>
+                {{form.tagline.label}}
+                {{ form.tagline(class='form-control', placeholder='Please') }}<br>
             </fieldset>
             <fieldset>
                 {{ form.answer1.label}}

@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, request, jsonify
+from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
@@ -64,6 +64,11 @@ def user(username):
     jobs= Job.query.all()
     return render_template('user.html', user=user, jobs=jobs, )
 
+@app.route('/my_jobs')
+@login_required
+def my_jobs():
+    jobs = current_user.jobs
+    return render_template('my_jobs.html', jobs=jobs)
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
@@ -93,13 +98,13 @@ def createpost():
         requirements1= form.requirements1.data
         requirements2 = form.requirements2.data
         requirements3= form.requirements3.data
-        new_post = Job(title, body, location=location, category=category, user_id=3, requirements1=requirements1, requirements2=requirements2, requirements3=requirements3)
+        new_post = Job(title, body, location=location, category=category, user_id=5, requirements1=requirements1, requirements2=requirements2, requirements3=requirements3)
         db.session.add(new_post)
         db.session.commit()
     return render_template('createjob.html', form=form)
 
 
-@app.route('/application', methods=['GET', 'POST'])
+@app.route('/application/')
 @login_required
 def apply():
     form = ApplicationForm()
@@ -109,23 +114,28 @@ def apply():
         last_name = form.last_name.data        
         location = form.location.data
         about_me = form.about_me.data
+        tagline =form.tagline.data
         location = form.location.data
         answer1= form.answer1.data
         answer2 = form.answer2.data
         answer3= form.answer3.data
-        new_application = Application(first_name, last_name, location=location, about_me=about_me, user_id=3, answer1=answer1, answer2=answer2, answer3=answer3)
+        # job_id= int(Job.id)
+        new_application = Application(first_name, last_name, tagline, location, about_me, user_id=5, answer1=answer1, answer2=answer2, answer3=answer3)
         db.session.add(new_application)
         db.session.commit()
     return render_template('application.html', form=form)
 
 
-@app.route('/jobs/<int:job_id>')
+@app.route('/my_jobs/<int:job_id>')
 def job_detail(job_id):
-    job = Job.query.get_or_404(job_id)
-    return render_template('job_apps.html', job=job)
+    job = Job.query.get(job_id)
+    application = Application.query.filter_by(job_id = job_id)
+
+    return render_template('job_apps.html', job=job, application=application)
 
 
-@app.route('/jobs/<int:job_id>/update', methods=['GET', 'POST'])
+
+@app.route('/my_jobs/<int:job_id>/update', methods=['GET', 'POST'])
 @login_required
 def job_update(job_id):
     job = Job.query.get_or_404(job_id)
@@ -147,7 +157,7 @@ def job_update(job_id):
     return render_template('job_update.html', job=job, form=form)
 
 
-@app.route('/jobs/<int:job_id>/delete', methods=['POST'])
+@app.route('/my_jobs/<int:job_id>/delete', methods=['POST'])
 @login_required
 def job_delete(job_id):
     job = Job.query.get_or_404(job_id)
@@ -159,4 +169,4 @@ def job_delete(job_id):
     db.session.commit()
 
     flash(f'{job.title} has been deleted', 'success')
-    return redirect(url_for('app.my_jobs'))
+    return redirect(url_for('app.my_jobs', job_id=Job.id))
